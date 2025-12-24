@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import ResourceCard from './ResourceCard';
 
@@ -39,13 +40,28 @@ export default function ResourceGrid({ resources }: ResourceGridProps) {
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredResources.length > 0 ? (
-          filteredResources.map((resource) => (
-            <ResourceCard key={resource.id} {...resource} />
+          filteredResources.map((resource, index) => (
+            <motion.div
+              key={resource.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.3,
+                delay: index * 0.05,
+                ease: 'easeOut',
+              }}
+            >
+              <ResourceCard {...resource} />
+            </motion.div>
           ))
         ) : (
-          <div className="col-span-full py-12 text-center text-muted-foreground">
-            目前沒有資源
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="col-span-full py-12 text-center text-muted-foreground"
+          >
+            <p className="body text-muted-foreground">目前沒有資源</p>
+          </motion.div>
         )}
       </div>
     </div>

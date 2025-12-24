@@ -36,20 +36,22 @@ export default function ResourceCard({
   const Icon = typeIcons[type];
 
   return (
-    <Card className="transition-shadow hover:shadow-md">
-      <CardHeader>
-        <div className="flex items-start justify-between">
+    <Card className="mb-6">
+      <CardHeader className="pb-4">
+        <div className="flex items-start justify-between gap-4 mb-3">
           <div className="flex items-center gap-2">
-            <Icon className="h-5 w-5 text-primary" />
-            <h3 className="text-lg font-semibold">{title}</h3>
+            <Icon className="h-5 w-5 text-primary flex-shrink-0" />
+            <h3 className="h4">{title}</h3>
           </div>
           <Badge variant="secondary">{typeLabels[type]}</Badge>
         </div>
+        <p className="body-small text-secondary-text leading-relaxed">{description}</p>
       </CardHeader>
-      <CardContent className="space-y-3">
-        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
+      <CardContent className="space-y-4 pt-0">
         {duration && (
-          <p className="text-xs text-muted-foreground">時長：{duration}</p>
+          <div className="flex items-center gap-2">
+            <span className="caption text-muted-foreground">時長：{duration}</span>
+          </div>
         )}
         {tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
@@ -62,9 +64,9 @@ export default function ResourceCard({
         )}
         {url && (
           <Button
-            variant="outline"
+            variant="default"
             size="sm"
-            className="w-full"
+            className="w-full button-shadow"
             onClick={() => window.open(url, '_blank', 'noopener,noreferrer')}
           >
             <ExternalLink className="mr-2 h-4 w-4" />

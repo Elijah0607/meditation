@@ -26,14 +26,14 @@ export default function Sidebar() {
   };
 
   return (
-    <div className="flex h-screen w-64 flex-col border-r bg-background">
+    <div className="flex h-screen w-64 flex-col border-r" style={{ backgroundColor: '#f8f9fa' }}>
       {/* Logo */}
-      <div className="flex h-16 items-center border-b px-6">
+      <div className="flex h-16 items-center border-b bg-card px-6 card-shadow">
         <div className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <span className="text-sm font-semibold">大</span>
           </div>
-          <span className="text-lg font-semibold">大腦降噪</span>
+          <span className="h5">大腦降噪</span>
         </div>
       </div>
 
@@ -46,10 +46,10 @@ export default function Sidebar() {
               key={item.name}
               href={item.href}
               className={cn(
-                'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors',
+                'flex items-center gap-3 rounded-lg px-3 py-2 body-small font-medium transition-all',
                 isActive
-                  ? 'bg-accent text-accent-foreground'
-                  : 'text-muted-foreground hover:bg-accent hover:text-accent-foreground'
+                  ? 'bg-card text-foreground card-shadow'
+                  : 'text-muted-foreground hover:bg-card hover:text-foreground hover:shadow-sm'
               )}
             >
               <item.icon className="h-5 w-5" />
@@ -62,19 +62,19 @@ export default function Sidebar() {
       <Separator />
 
       {/* User Section */}
-      <div className="p-4">
-        <div className="flex items-center gap-3 rounded-lg px-3 py-2">
-          <Avatar>
-            <AvatarFallback>用</AvatarFallback>
+      <div className="p-4 border-t bg-card">
+        <div className="flex items-center gap-3 rounded-lg px-3 py-3 bg-background card-shadow">
+          <Avatar className="h-10 w-10">
+            <AvatarFallback className="text-sm">用</AvatarFallback>
           </Avatar>
-          <div className="flex-1">
-            <p className="text-sm font-medium">會員</p>
-            <p className="text-xs text-muted-foreground">Member</p>
+          <div className="flex-1 min-w-0">
+            <p className="body-small font-medium truncate">會員</p>
+            <p className="caption text-muted-foreground">Member</p>
           </div>
         </div>
         <button
           onClick={handleLogout}
-          className="mt-2 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+          className="mt-3 flex w-full items-center gap-3 rounded-lg px-3 py-2 body-small text-muted-foreground transition-all hover:bg-background hover:text-foreground hover:shadow-sm"
         >
           <LogOut className="h-5 w-5" />
           登出

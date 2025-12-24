@@ -1,6 +1,7 @@
 'use client';
 
 import ResourceGrid, { Resource } from '@/components/resources/ResourceGrid';
+import PageTransition from '@/components/shared/PageTransition';
 
 // 示例数据 - 后续可以从 Supabase 获取
 const resources: Resource[] = [
@@ -43,13 +44,13 @@ const resources: Resource[] = [
 
 export default function ResourcesPage() {
   return (
-    <>
+    <PageTransition>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">資源庫</h1>
-        <p className="mt-2 text-muted-foreground">冥想音檔、引導文章與其他資源</p>
+        <h1 className="h1">資源庫</h1>
+        <p className="mt-2 body-small text-muted-foreground">冥想音檔、引導文章與其他資源</p>
       </div>
       <ResourceGrid resources={resources} />
-    </>
+    </PageTransition>
   );
 }
 

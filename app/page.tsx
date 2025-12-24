@@ -1,12 +1,15 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { isAccessGranted } from '@/lib/gate';
 import Sidebar from '@/components/layout/Sidebar';
 import MainContent from '@/components/layout/MainContent';
 import RightSidebar from '@/components/layout/RightSidebar';
 import ContentFeed from '@/components/dashboard/ContentFeed';
+import FeedFilters from '@/components/dashboard/FeedFilters';
+import PageTransition from '@/components/shared/PageTransition';
+import { LoadingPage } from '@/components/ui/loading';
 
 // 示例数据
 const feedItems = [
@@ -45,6 +48,8 @@ const feedItems = [
 
 export default function HomePage() {
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeFilter, setActiveFilter] = useState('all');
 
   useEffect(() => {
     if (!isAccessGranted()) {
@@ -53,26 +58,36 @@ export default function HomePage() {
   }, [router]);
 
   if (!isAccessGranted()) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <p className="text-muted-foreground">載入中...</p>
-        </div>
-      </div>
-    );
+    return <LoadingPage />;
   }
+
+  // 筛选逻辑
+  const filteredItems = feedItems.filter((item) => {
+    const matchesSearch = !searchQuery || 
+      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item.content.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesFilter = activeFilter === 'all' || item.type === activeFilter;
+    return matchesSearch && matchesFilter;
+  });
 
   return (
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
       <MainContent>
-        <div>
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold">Feed</h1>
-            <p className="mt-2 text-muted-foreground">最新內容與動態</p>
+        <PageTransition>
+          <div>
+            <div className="mb-8">
+              <h1 className="h1">Feed</h1>
+              <p className="mt-2 body-small text-muted-foreground">最新內容與動態</p>
+            </div>
+            <FeedFilters
+              onSearch={setSearchQuery}
+              onFilter={setActiveFilter}
+              activeFilter={activeFilter}
+            />
+            <ContentFeed items={filteredItems} />
           </div>
-          <ContentFeed items={feedItems} />
-        </div>
+        </PageTransition>
       </MainContent>
       <RightSidebar />
     </div>

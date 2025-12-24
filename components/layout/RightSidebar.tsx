@@ -42,12 +42,12 @@ const announcements: Announcement[] = [
 
 export default function RightSidebar() {
   return (
-    <div className="hidden w-80 border-l bg-background lg:block">
+    <div className="hidden w-80 border-l bg-secondary-bg lg:block">
       <div className="sticky top-0 space-y-6 p-6">
         {/* Upcoming Events */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
+            <CardTitle className="flex items-center gap-2 h5">
               <Calendar className="h-4 w-4" />
               即將到來的活動
             </CardTitle>
@@ -56,12 +56,12 @@ export default function RightSidebar() {
             {upcomingEvents.map((event) => (
               <div
                 key={event.id}
-                className="rounded-lg border p-3 transition-colors hover:bg-accent"
+                className="rounded-lg border bg-card p-3 transition-colors hover:bg-accent"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <p className="text-sm font-medium">{event.title}</p>
-                    <p className="text-xs text-muted-foreground">{event.date}</p>
+                    <p className="body-small font-medium">{event.title}</p>
+                    <p className="caption text-muted-foreground">{event.date}</p>
                   </div>
                   <Badge variant="secondary" className="text-xs">
                     {event.type}
@@ -75,7 +75,7 @@ export default function RightSidebar() {
         {/* Announcements */}
         <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2 text-base">
+            <CardTitle className="flex items-center gap-2 h5">
               <Bell className="h-4 w-4" />
               社群公告
             </CardTitle>
@@ -84,10 +84,10 @@ export default function RightSidebar() {
             {announcements.map((announcement) => (
               <div
                 key={announcement.id}
-                className="rounded-lg border p-3 transition-colors hover:bg-accent"
+                className="rounded-lg border bg-card p-3 transition-colors hover:bg-accent"
               >
-                <p className="text-sm font-medium">{announcement.title}</p>
-                <p className="text-xs text-muted-foreground">{announcement.date}</p>
+                <p className="body-small font-medium">{announcement.title}</p>
+                <p className="caption text-muted-foreground">{announcement.date}</p>
               </div>
             ))}
           </CardContent>

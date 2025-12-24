@@ -1,6 +1,7 @@
 'use client';
 
 import EventList, { Event } from '@/components/events/EventList';
+import PageTransition from '@/components/shared/PageTransition';
 
 // 示例数据 - 后续可以从 Supabase 获取
 const events: Event[] = [
@@ -43,13 +44,13 @@ const events: Event[] = [
 
 export default function EventsPage() {
   return (
-    <>
+    <PageTransition>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold">活動</h1>
-        <p className="mt-2 text-muted-foreground">查看即將到來的活動並報名參加</p>
+        <h1 className="h1">活動</h1>
+        <p className="mt-2 body-small text-muted-foreground">查看即將到來的活動並報名參加</p>
       </div>
       <EventList events={events} />
-    </>
+    </PageTransition>
   );
 }
 

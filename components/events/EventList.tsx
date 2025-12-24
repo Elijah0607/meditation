@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import EventCard from './EventCard';
 
@@ -48,15 +49,30 @@ export default function EventList({ events }: EventListProps) {
         </TabsList>
       </Tabs>
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div className="space-y-6">
         {filteredEvents.length > 0 ? (
-          filteredEvents.map((event) => (
-            <EventCard key={event.id} {...event} />
+          filteredEvents.map((event, index) => (
+            <motion.div
+              key={event.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.3,
+                delay: index * 0.05,
+                ease: 'easeOut',
+              }}
+            >
+              <EventCard {...event} />
+            </motion.div>
           ))
         ) : (
-          <div className="col-span-full py-12 text-center text-muted-foreground">
-            目前沒有活動
-          </div>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="py-12 text-center"
+          >
+            <p className="body text-muted-foreground">目前沒有活動</p>
+          </motion.div>
         )}
       </div>
     </div>

@@ -49,10 +49,10 @@ export default function GateForm() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted/30 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-2xl">大腦降噪</CardTitle>
+          <CardTitle className="h2">大腦降噪</CardTitle>
           <CardDescription>請輸入通關密語以繼續</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -72,7 +72,7 @@ export default function GateForm() {
                 disabled={isLoading}
               />
               {error && (
-                <p className="text-sm text-destructive">密語錯誤，請重新輸入</p>
+                <p className="body-small text-destructive">密語錯誤，請重新輸入</p>
               )}
             </div>
             <Button type="submit" className="w-full" disabled={isLoading}>
@@ -98,7 +98,7 @@ export default function GateForm() {
             取得通關密語
           </Button>
 
-          <p className="text-center text-xs text-muted-foreground">
+          <p className="text-center caption text-muted-foreground">
             加入「大腦降噪」實驗室，<br />
             在置頂公告領取本週密鑰。
           </p>

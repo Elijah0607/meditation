@@ -28,7 +28,8 @@ export default function RSVPButton({
     <Button
       onClick={handleClick}
       variant={isRSVPed ? 'secondary' : 'default'}
-      className="w-full sm:w-auto"
+      className="w-full button-shadow"
+      size="lg"
     >
       <Calendar className="mr-2 h-4 w-4" />
       {isRSVPed ? '已報名' : '報名參加'}

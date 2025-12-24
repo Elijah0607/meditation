@@ -16,10 +16,10 @@ export default function AnnouncementCard({
   isPinned = false,
 }: AnnouncementCardProps) {
   return (
-    <Card className="border-primary/20 bg-primary/5">
+    <Card className="mb-6 border-primary/20 bg-primary/5 card-shadow-elevated">
       <CardHeader>
         <div className="flex items-center justify-between">
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 h4">
             <Megaphone className="h-5 w-5 text-primary" />
             {title}
           </CardTitle>
@@ -31,8 +31,8 @@ export default function AnnouncementCard({
         </div>
       </CardHeader>
       <CardContent>
-        <p className="text-sm text-muted-foreground leading-relaxed">{content}</p>
-        <p className="mt-4 text-xs text-muted-foreground">{date}</p>
+        <p className="body text-muted-foreground leading-relaxed">{content}</p>
+        <p className="mt-4 caption text-muted-foreground">{date}</p>
       </CardContent>
     </Card>
   );

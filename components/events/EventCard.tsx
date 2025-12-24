@@ -31,9 +31,9 @@ export default function EventCard({
   attendees,
 }: EventCardProps) {
   return (
-    <Card className="overflow-hidden transition-shadow hover:shadow-lg">
+    <Card className="mb-6 overflow-hidden">
       {coverImage && (
-        <div className="relative h-48 w-full overflow-hidden bg-muted">
+        <div className="relative h-56 w-full overflow-hidden bg-muted">
           <img
             src={coverImage}
             alt={title}
@@ -41,39 +41,39 @@ export default function EventCard({
           />
         </div>
       )}
-      <CardHeader>
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <h3 className="text-xl font-semibold">{title}</h3>
-            <div className="mt-2 flex items-center gap-2">
-              <Badge variant="secondary">{type}</Badge>
+      <CardHeader className="pb-4">
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 min-w-0">
+            <div className="mb-3">
+              <Badge variant="secondary" className="mb-2">{type}</Badge>
             </div>
+            <h3 className="h3 mb-3">{title}</h3>
+            <p className="body text-secondary-text leading-relaxed">{description}</p>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="space-y-3">
-        <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
-        <div className="space-y-2 text-sm">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Calendar className="h-4 w-4" />
-            <span>{date}</span>
-            {time && <span>· {time}</span>}
+      <CardContent className="space-y-4 pt-0">
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 text-muted">
+            <Calendar className="h-4 w-4 flex-shrink-0" />
+            <span className="body-small">{date}</span>
+            {time && <span className="body-small">· {time}</span>}
           </div>
           {location && (
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <MapPin className="h-4 w-4" />
-              <span>{location}</span>
+            <div className="flex items-center gap-2 text-muted">
+              <MapPin className="h-4 w-4 flex-shrink-0" />
+              <span className="body-small">{location}</span>
             </div>
           )}
           {attendees !== undefined && (
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <Users className="h-4 w-4" />
-              <span>{attendees} 人已報名</span>
+            <div className="flex items-center gap-2 text-muted">
+              <Users className="h-4 w-4 flex-shrink-0" />
+              <span className="body-small">{attendees} 人已報名</span>
             </div>
           )}
         </div>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="pt-4 border-t">
         <RSVPButton
           eventId={id}
           rsvpUrl={rsvpUrl}
