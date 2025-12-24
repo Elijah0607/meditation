@@ -64,3 +64,13 @@ body {
 .glitch-text {
   animation: glitch 0.3s infinite;
 }
+
+/* Breathing animation for input */
+@keyframes breathing {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 255, 65, 0.6);
+  }
+}
