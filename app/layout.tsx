@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "大腦降噪 | Brain Noise Reduction",
-  description: "透過數位儀式釋放壓力，建立匿名連結",
+  description: "極簡會員社群平台",
 };
 
 export default function RootLayout({

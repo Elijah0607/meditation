@@ -20,7 +20,7 @@ export default function VoidPage() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
-      className="relative w-screen h-screen bg-cyberpunk-darker flex items-center justify-center"
+      className="relative w-screen h-screen bg-background flex items-center justify-center"
     >
       <BreathingCircle onComplete={handleComplete} />
     </motion.div>

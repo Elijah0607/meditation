@@ -1,97 +1,80 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import CyberpunkBackground from '@/components/shared/CyberpunkBackground';
-import GateModal from '@/components/shared/GateModal';
-import BlurredTextInput from '@/components/catharsis/BlurredTextInput';
-import FlushButton from '@/components/catharsis/FlushButton';
-import ParticleExplosion from '@/components/catharsis/ParticleExplosion';
 import { isAccessGranted } from '@/lib/gate';
+import Sidebar from '@/components/layout/Sidebar';
+import MainContent from '@/components/layout/MainContent';
+import RightSidebar from '@/components/layout/RightSidebar';
+import ContentFeed from '@/components/dashboard/ContentFeed';
 
-export default function CatharsisPage() {
-  const [text, setText] = useState('');
-  const [showParticles, setShowParticles] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
-  const [isChecking, setIsChecking] = useState(true);
+// 示例数据
+const feedItems = [
+  {
+    id: '1',
+    type: 'announcement' as const,
+    title: '本週公告',
+    content: '歡迎來到「大腦降噪」社群！本週我們將舉辦讀書會直播，請記得 RSVP 並全程參與。',
+    author: '阿法',
+    date: '2025-01-10',
+    isPinned: true,
+  },
+  {
+    id: '2',
+    type: 'article' as const,
+    title: '如何建立高價值社群？',
+    content: '社群的核心不在於人數，而在於價值。我們需要思考如何為成員創造真正的價值，而不是單純的資訊堆疊。',
+    author: '阿法',
+    date: '2025-01-09',
+    likes: 12,
+    isLiked: false,
+    isBookmarked: true,
+  },
+  {
+    id: '3',
+    type: 'article' as const,
+    title: '冥想與專注力',
+    content: '透過每日的冥想練習，我們可以提升專注力，減少大腦的雜訊，讓思緒更加清晰。',
+    author: '阿法',
+    date: '2025-01-08',
+    likes: 8,
+    isLiked: true,
+    isBookmarked: false,
+  },
+];
+
+export default function HomePage() {
   const router = useRouter();
 
-  // 檢查驗證狀態
   useEffect(() => {
-    const checkAccess = () => {
-      const hasAccess = isAccessGranted();
-      setIsVerified(hasAccess);
-      setIsChecking(false);
-    };
+    if (!isAccessGranted()) {
+      router.push('/gate');
+    }
+  }, [router]);
 
-    checkAccess();
-  }, []);
-
-  const handleAccessGranted = () => {
-    setIsVerified(true);
-  };
-
-  const handleFlush = () => {
-    if (!text.trim() || !isVerified) return;
-    
-    setShowParticles(true);
-  };
-
-  const handleParticleComplete = () => {
-    setText('');
-    setShowParticles(false);
-    // 延遲後跳轉到 void 頁面
-    setTimeout(() => {
-      router.push('/void');
-    }, 500);
-  };
-
-  // 如果還在檢查，顯示載入狀態
-  if (isChecking) {
+  if (!isAccessGranted()) {
     return (
-      <div className="relative w-screen h-screen overflow-hidden bg-cyberpunk-darker flex items-center justify-center">
-        <CyberpunkBackground />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-cyberpunk-primary font-mono text-sm"
-        >
-          初始化連接...
-        </motion.div>
+      <div className="flex min-h-screen items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground">載入中...</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-cyberpunk-darker">
-      <CyberpunkBackground />
-      
-      {/* Gate Modal - 如果未驗證則顯示 */}
-      <GateModal isOpen={!isVerified} onAccessGranted={handleAccessGranted} />
-
-      {/* 主功能區 - 只有驗證通過才顯示 */}
-      <AnimatePresence>
-        {isVerified && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="relative z-10 w-full h-full"
-          >
-            {showParticles && text && (
-              <ParticleExplosion text={text} onComplete={handleParticleComplete} />
-            )}
-
-            <div className="relative z-10 w-full h-full">
-              <BlurredTextInput value={text} onChange={setText} />
-            </div>
-
-            <FlushButton onClick={handleFlush} disabled={!text.trim() || showParticles} />
-          </motion.div>
-        )}
-      </AnimatePresence>
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar />
+      <MainContent>
+        <div>
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold">Feed</h1>
+            <p className="mt-2 text-muted-foreground">最新內容與動態</p>
+          </div>
+          <ContentFeed items={feedItems} />
+        </div>
+      </MainContent>
+      <RightSidebar />
     </div>
   );
 }

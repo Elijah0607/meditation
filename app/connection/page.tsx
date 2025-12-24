@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
-import CyberpunkBackground from '@/components/shared/CyberpunkBackground';
 import MessageDisplay from '@/components/connection/MessageDisplay';
 import MessageInput from '@/components/connection/MessageInput';
 import LineGroupLink from '@/components/connection/LineGroupLink';
 import { getRandomSystemMessage, createUserMessage } from '@/lib/supabase/messages';
 import { Message } from '@/types';
+import { Button } from '@/components/ui/button';
 
 // 強制動態渲染，避免構建時預渲染
 export const dynamic = 'force-dynamic';
@@ -50,26 +50,19 @@ export default function ConnectionPage() {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-cyberpunk-darker">
-      <CyberpunkBackground />
-      
+    <div className="relative w-screen h-screen overflow-hidden bg-background">
       <div className="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 py-16">
         <MessageDisplay message={message} />
 
         <div className="mt-16 flex flex-col items-center gap-6">
           <MessageInput onSubmit={handleSubmit} isSubmitting={isSubmitting} />
 
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
+          <Button
+            variant="outline"
             onClick={handleLeave}
-            className="px-8 py-3 bg-transparent border border-cyberpunk-primary/30 text-cyberpunk-primary/60 font-mono hover:border-cyberpunk-primary hover:text-cyberpunk-primary transition-all duration-300"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
             離開
-          </motion.button>
+          </Button>
         </div>
       </div>
 
